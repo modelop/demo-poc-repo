@@ -1,0 +1,10 @@
+{
+  "Version": "1.2",
+  "Envelope": "delimited",
+  "Loop": true,
+  "Transport": {
+    "Path": "/root/data/close_prices.jsons",
+    "Type": "file"
+  },
+  "Encoding": "json"
+}
