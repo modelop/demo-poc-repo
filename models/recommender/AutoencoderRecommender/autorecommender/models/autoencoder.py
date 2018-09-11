@@ -275,7 +275,7 @@ def load_model(filepath):
     with open('_attrs.pkl', 'rb') as f:
         attrs = pickle.load(f)
 
-    model = Autorecommender(
+    model = Autoencoder(
         item_count=attrs['item_count'],
         encoding_dim=attrs['encoding_dim'],
         scale_factor=attrs['scale_factor'],
@@ -297,4 +297,3 @@ def load_model(filepath):
     model._items = attrs['items']
 
     return model
-
