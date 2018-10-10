@@ -1,0 +1,41 @@
+version: '2'
+services:
+  dashboard:
+    image: fastscore/dashboard:dev
+    network_mode: "host"
+    stdin_open: true
+    tty: true
+    environment:
+      CONNECT_PREFIX: https://127.0.0.1:8001
+
+  connect:
+    image: fastscore/connect:dev
+    network_mode: "host"
+    stdin_open: true
+    tty: true
+
+  engine-1:
+    image: fastscore/engine-x:dev
+    network_mode: "host"
+    stdin_open: true
+    tty: true
+# Uncomment the lines below if you want to link a given directory to the container.
+#    volumes:
+#      - ./data:/root/data
+    environment:
+        CONNECT_PREFIX: https://127.0.0.1:8001
+
+  database:
+    image: fastscore/model-manage-mysql:dev
+    network_mode: "host"
+
+  model-manage:
+    image: fastscore/model-manage:dev
+    network_mode: "host"
+    stdin_open: true
+    tty: true
+    depends_on:
+      - connect
+      - database
+    environment:
+      CONNECT_PREFIX: https://127.0.0.1:8001

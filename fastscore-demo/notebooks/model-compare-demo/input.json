@@ -1,0 +1,12 @@
+{
+    "Version": "1.2",
+    "Loop": false,
+    "Transport": {
+        "Type": "kafka",
+        "BootstrapServers": ["localhost:9092"],
+        "Topic": "input"
+    },
+    "Envelope": null,
+    "Encoding": "json",
+    "Schema": { "$ref": "double" }
+}

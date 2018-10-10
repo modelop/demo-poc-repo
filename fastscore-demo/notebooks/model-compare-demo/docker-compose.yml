@@ -1,0 +1,62 @@
+version: '2'
+services:
+  dashboard:
+    image: fastscore/dashboard:dev
+    network_mode: "host"
+    stdin_open: true
+    tty: true
+    environment:
+      CONNECT_PREFIX: https://127.0.0.1:8001
+
+  connect:
+    image: fastscore/connect:dev
+    network_mode: "host"
+    stdin_open: true
+    tty: true
+
+  engine-1:
+    image: fastscore/engine-x:dev
+    network_mode: "host"
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./data:/root/data
+    environment:
+        CONNECT_PREFIX: https://127.0.0.1:8001
+
+  engine-2c:
+    image: fastscore/engine-x:dev
+    network_mode: "host"
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./data:/root/data
+    environment:
+        CONNECT_PREFIX: https://127.0.0.1:8001
+        API_PORT: 8004
+
+  engine-3:
+    image: fastscore/engine-x:dev
+    network_mode: "host"
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./data:/root/data
+    environment:
+        CONNECT_PREFIX: https://127.0.0.1:8001
+        API_PORT: 8005
+
+  database:
+    image: fastscore/model-manage-mysql:dev
+    network_mode: "host"
+
+  model-manage:
+    image: fastscore/model-manage:dev
+    network_mode: "host"
+    stdin_open: true
+    tty: true
+    depends_on:
+      - connect
+      - database
+    environment:
+      CONNECT_PREFIX: https://127.0.0.1:8001

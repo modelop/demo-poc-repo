@@ -1,0 +1,47 @@
+{
+    "type": "record",
+    "name": "taggedreport",
+    "fields": [
+        {
+            "type": "string",
+            "name": "model"
+        },
+        {
+            "type": {
+                "type": "record",
+                "name": "sensorrecord",
+                "fields": [
+                    {
+                        "type": "string",
+                        "name": "type"
+                    },
+                    {
+                        "type": "string",
+                        "name": "timestamp"
+                    },
+                    {
+                        "type": "string",
+                        "name": "tap"
+                    },
+                    {
+                        "type": "string",
+                        "name": "src"
+                    },
+                    {
+                        "type": "int",
+                        "name": "id"
+                    },
+                    {
+                        "type": "double",
+                        "name": "delta_time"
+                    },
+                    {
+                        "type": "int",
+                        "name": "data"
+                    }
+                ]
+            },
+            "name": "msg"
+        }
+    ]
+}

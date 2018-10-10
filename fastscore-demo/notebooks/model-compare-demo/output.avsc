@@ -1,0 +1,40 @@
+{
+  "type": "record", 
+  "name": "ModelCompare",
+  "fields": [
+	{"name": "x", 
+	 "type": {
+		"type": "record",
+		"name": "xstatistics",
+   	    "fields": [
+			{"name": "moments", "type": {
+		   	 "type": "array", "items": "double"}},
+			{"name": "min", "type": "double"},
+			{"name": "max", "type": "double"},
+			{"name": "emwa", "type": "double"}
+					]}
+		},
+		{"name": "y", 
+		 "type": {
+				  "type": "record",
+			  	  "name": "ystatistics",
+			  	  "fields": [
+						{"name": "moments", "type": {
+								"type": "array", "items": "double"}},
+						{"name": "min", "type": "double"},
+						{"name": "max", "type": "double"},
+						{"name": "emwa", "type": "double"}
+					]}
+		},
+		{"name": "Comparative", 
+		 "type": {
+				  "type": "record",
+			  	  "name": "comparative_statistics",
+			  	  "fields": [
+						{"name": "mse", "type": "double"},
+						{"name": "mae", "type": "double"}
+					]}
+		},
+		{"name": "NumberofRecords", "type": "double"}
+	]
+}

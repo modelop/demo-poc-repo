@@ -1,0 +1,30 @@
+{
+  "type": "record",
+  "name": "CarRecord",
+  "fields": [
+    {"name": "make", "type": "string"},
+    {"name": "fuelType", "type": "string"},
+    {"name": "aspiration", "type": "string"},
+    {"name": "numDoors", "type": "string"},
+    {"name": "bodyStyle", "type": "string"},
+    {"name": "driveWheels", "type": "string"},
+    {"name": "engineLocation", "type": "string"},
+    {"name": "wheelBase", "type": "double"},
+    {"name": "length", "type": "double"},
+    {"name": "width", "type": "double"},
+    {"name": "height", "type": "double"},
+    {"name": "curbWeight", "type": "int"},
+    {"name": "engineType", "type": "string"},
+    {"name": "numCylinders", "type": "string"},
+    {"name": "engineSize", "type": "int"},
+    {"name": "fuelSystem", "type": "string"},
+    {"name": "bore", "type": "double"},
+    {"name": "stroke", "type": "double"},
+    {"name": "compressionRatio", "type": "double"},
+    {"name": "horsepower", "type": "int"},
+    {"name": "peakRPM", "type": "int"},
+    {"name": "cityMPG", "type": "int"},
+    {"name": "highwayMPG", "type": "int"},
+    {"name": "price", "type": "int"}
+  ]
+}

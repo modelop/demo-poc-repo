@@ -1,0 +1,6 @@
+{
+    "Transport": {
+        "Type": "discard"
+    },
+    "Schema": null
+}

@@ -1,0 +1,183 @@
+[
+    {
+        "type": "record",
+        "name": "adjustment",
+        "fields": [
+            {
+                "type": "double",
+                "name": "LR"
+            },
+            {
+                "type": "double",
+                "name": "CPI"
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "alert",
+        "fields": [
+            {
+                "type": "string",
+                "name": "src"
+            },
+            {
+                "type": "string",
+                "name": "name"
+            },
+            {
+                "type": "string",
+                "name": "value"
+            }
+        ]
+    },
+    {
+        "name": "sp500",
+        "type": "record",
+        "fields": [
+            {
+                "name": "Date",
+                "type": "double"
+            },
+            {
+                "name": "Close",
+                "type": "double"
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "config",
+        "fields": [
+            {
+                "type": "string",
+                "name": "item"
+            },
+            {
+                "type": "string",
+                "name": "value"
+            }
+        ]
+    },
+    {
+        "name": "cpi",
+        "type": "record",
+        "fields": [
+            {
+                "name": "Date",
+                "type": "double"
+            },
+            {
+                "name": "CPI",
+                "type": "double"
+            }
+        ]
+    },
+    {
+        "name": "double",
+        "type": "double"
+    },
+    {
+        "name": "int",
+        "type": "int"
+    },
+    {
+        "type": "record",
+        "name": "report",
+        "fields": [
+            {
+                "type": "string",
+                "name": "type"
+            },
+            {
+                "type": "string",
+                "name": "timestamp"
+            },
+            {
+                "type": "string",
+                "name": "tap"
+            },
+            {
+                "type": "string",
+                "name": "src"
+            },
+            {
+                "type": "int",
+                "name": "id"
+            },
+            {
+                "type": "double",
+                "name": "delta_time"
+            },
+            {
+                "type": "int",
+                "name": "data"
+            }
+        ]
+    },
+    {
+        "name": "string",
+        "type": "string"
+    },
+    {
+        "type": "record",
+        "name": "tagged_double",
+        "fields": [
+            {
+                "type": "string",
+                "name": "name"
+            },
+            {
+                "type": "double",
+                "name": "value"
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "taggedreport",
+        "fields": [
+            {
+                "type": "string",
+                "name": "model"
+            },
+            {
+                "type": {
+                    "type": "record",
+                    "name": "sensorrecord",
+                    "fields": [
+                        {
+                            "type": "string",
+                            "name": "type"
+                        },
+                        {
+                            "type": "string",
+                            "name": "timestamp"
+                        },
+                        {
+                            "type": "string",
+                            "name": "tap"
+                        },
+                        {
+                            "type": "string",
+                            "name": "src"
+                        },
+                        {
+                            "type": "int",
+                            "name": "id"
+                        },
+                        {
+                            "type": "double",
+                            "name": "delta_time"
+                        },
+                        {
+                            "type": "int",
+                            "name": "data"
+                        }
+                    ]
+                },
+                "name": "msg"
+            }
+        ]
+    }
+]

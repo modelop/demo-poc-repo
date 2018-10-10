@@ -1,0 +1,9 @@
+{
+  "Version": "1.2",
+  "Transport": {
+    "Type": "file",
+    "Path": "/root/data/output.jsons"
+  },
+  "Envelope": "delimited",
+  "Encoding": "json"
+}

@@ -1,0 +1,21 @@
+fastscore:
+  fleet:
+    - api: model-manage
+      host: localhost
+      port: 8002
+    - api: engine-x
+      host: localhost
+      port: 8003
+
+  db:
+    type: mysql
+    host: localhost
+    port: 3306
+    username: root
+    password: root
+
+  pneumo:
+    type: kafka
+    bootstrap:
+      - localhost:9092
+    topic: notify

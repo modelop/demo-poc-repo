@@ -1,0 +1,4 @@
+[submodule "fastscore-sdk"]
+	path = fastscore-sdk
+	url = https://github.com/opendatagroup/fastscore-sdk.git
+	branch = v1.6

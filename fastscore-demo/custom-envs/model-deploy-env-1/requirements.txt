@@ -1,0 +1,4 @@
+kafka
+numpy==1.13.3
+scikit-learn==0.18.2
+tensorflow==1.4.0

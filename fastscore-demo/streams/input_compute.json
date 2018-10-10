@@ -1,0 +1,10 @@
+{
+  "Version": "1.2",
+  "Loop": true,
+  "Transport": {
+    "Type": "file",
+    "Path": "/root/data/input.jsons"
+  },
+  "Envelope": "delimited",
+  "Encoding": "json"
+}

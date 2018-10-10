@@ -1,0 +1,14 @@
+{
+    "type": "record",
+    "name": "config",
+    "fields": [
+        {
+            "type": "string",
+            "name": "item"
+        },
+        {
+            "type": "string",
+            "name": "value"
+        }
+    ]
+}

@@ -1,0 +1,46 @@
+---
+Assets:
+
+    Models:
+
+    - Name: tf_sp500_lstm
+      Environment: localrepo/engine:tensorflow
+
+    - Name: preprocessor
+
+    - Name: postprocessor
+
+    - Name: alerter
+
+    Streams:
+    - Name: rest
+
+Workflow:
+    preprocessor:
+        Inputs:
+            0: rest
+            2: rest
+        Outputs:
+            1: tf_sp500_lstm
+            3: postprocessor
+            5: alerter
+
+    tf_sp500_lstm:
+        Inputs:
+            0: preprocessor
+        Outputs:
+            1: postprocessor
+
+    postprocessor:
+        Inputs:
+            0: tf_sp500_lstm
+            2: preprocessor
+        Outputs:
+            1: alerter
+
+    alerter:
+        Inputs:
+            0: postprocessor
+            2: preprocessor
+        Outputs:
+            1: rest

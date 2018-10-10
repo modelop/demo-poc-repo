@@ -1,0 +1,4 @@
+CREATE DATABASE fastscore;
+CREATE USER admin WITH PASSWORD 'scorefast' WITH ALL PRIVILEGES;
+CREATE USER grafana WITH PASSWORD 'grafana';
+GRANT READ ON fastscore TO grafana;

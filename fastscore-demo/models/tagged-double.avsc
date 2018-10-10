@@ -1,0 +1,14 @@
+{
+    "type": "record",
+    "name": "tagged_double",
+    "fields": [
+        {
+            "type": "string",
+            "name": "name"
+        },
+        {
+            "type": "double",
+            "name": "value"
+        }
+    ]
+}

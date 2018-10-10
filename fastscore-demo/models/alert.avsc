@@ -1,0 +1,18 @@
+{
+    "type": "record",
+    "name": "alert",
+    "fields": [
+        {
+            "type": "string",
+            "name": "src"
+        },
+        {
+            "type": "string",
+            "name": "name"
+        },
+        {
+            "type": "string",
+            "name": "value"
+        }
+    ]
+}

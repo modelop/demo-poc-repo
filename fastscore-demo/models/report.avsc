@@ -1,0 +1,34 @@
+{
+    "type": "record",
+    "name": "report",
+    "fields": [
+        {
+            "type": "string",
+            "name": "type"
+        },
+        {
+            "type": "string",
+            "name": "timestamp"
+        },
+        {
+            "type": "string",
+            "name": "tap"
+        },
+        {
+            "type": "string",
+            "name": "src"
+        },
+        {
+            "type": "int",
+            "name": "id"
+        },
+        {
+            "type": "double",
+            "name": "delta_time"
+        },
+        {
+            "type": "int",
+            "name": "data"
+        }
+    ]
+}

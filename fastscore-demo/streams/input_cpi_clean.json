@@ -1,0 +1,11 @@
+{
+  "Envelope": null,
+  "Transport": {
+    "Topic": "input_cpi_clean",
+    "BootstrapServers": [
+      "kafka:9092"
+    ],
+    "Type": "kafka"
+  },
+  "Encoding": "json"
+}

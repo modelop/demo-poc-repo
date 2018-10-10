@@ -1,0 +1,20 @@
+name: auro.macro.research 
+dependencies:
+- python=3
+- nb_conda
+- pandas
+- numpy
+- seaborn
+- pip
+- pip:
+  - pylint
+  - pydocstyle
+  - pep8
+  - openpyxl
+  - mypy
+  - pytest
+  - pytest-datafiles
+  - pysftp
+  - pdblp
+  - xlrd
+  - sklearn

@@ -1,0 +1,8 @@
+{
+  "Transport": {
+    "Type": "REST"
+  },
+  "Envelope": "delimited",
+  "Encoding": "json",
+  "Schema": {"$ref":"hello_output"}
+}

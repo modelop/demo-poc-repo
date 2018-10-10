@@ -1,0 +1,301 @@
+version: '3.3'
+services:
+  proxy:
+    image: fastscore/frontman:dev
+    stdin_open: true
+    tty: true
+    environment:
+      CONNECT_PREFIX: https://connect:8001
+    networks:
+      - fsnet
+
+  dashboard:
+    image: fastscore/dashboard:1.7
+    stdin_open: true
+    tty: true
+    environment:
+      CONNECT_PREFIX: https://connect:8001
+    networks:
+      - fsnet
+
+  connect:
+    image: fastscore/connect:1.7.1
+    stdin_open: true
+    tty: true
+    networks:
+      - fsnet
+
+  engine-1:
+    image: fastscore/engine:1.7.1
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./data:/root/data
+    environment:
+        CONNECT_PREFIX: https://connect:8001
+    networks:
+      - fsnet
+
+  engine-2:
+    image: localrepo/engine:tensorflow
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./data:/root/data
+    environment:
+        CONNECT_PREFIX: https://connect:8001
+    networks:
+      - fsnet
+
+  engine-3:
+    image: localrepo/engine:tensorflow
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./data:/root/data
+    environment:
+        CONNECT_PREFIX: https://connect:8001
+    networks:
+      - fsnet
+
+  engine-4:
+    image: fastscore/engine:dev
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./data:/root/data
+    environment:
+        CONNECT_PREFIX: https://connect:8001
+    networks:
+      - fsnet
+
+  engine-5:
+    image: localrepo/fastscore-engine:env-3
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./data:/root/data
+    environment:
+        CONNECT_PREFIX: https://connect:8001
+    networks:
+      - fsnet
+
+  engine-6:
+    image: fastscore/engine:dev
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./data:/root/data
+    environment:
+        CONNECT_PREFIX: https://connect:8001
+    networks:
+      - fsnet
+
+  database:
+    image: fastscore/model-manage-mysql:1.7
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - fsnet
+
+  model-manage:
+    image: fastscore/model-manage:1.7
+    stdin_open: true
+    tty: true
+    depends_on:
+      - connect
+      - database
+    environment:
+      CONNECT_PREFIX: https://connect:8001
+    networks:
+      - fsnet
+
+  model-deploy-1:
+    image: localrepo/fastscore-model-deploy:env-1
+#    ports:
+#      - "8888:8888"
+    volumes:
+      - ./notebooks:/home/jovyan/work/demos
+      - ./data:/home/jovyan/work/data
+    networks:
+      - fsnet
+    command: start-notebook.sh --NotebookApp.token='fastscore'
+
+  model-deploy-2:
+    image: localrepo/fastscore-model-deploy:env-2
+ #   ports:
+ #     - "8889:8888"
+    volumes:
+      - ./notebooks:/home/jovyan/work/demos
+    networks:
+      - fsnet
+    command: start-notebook.sh --NotebookApp.token='fastscore'
+
+  kafka:
+    image: fastscore/kafka
+#    ports:
+#      - "9092:9092"
+    networks:
+      - fsnet
+
+  conductor:
+    image: fastscore/conductor-docker:dev
+#    ports:
+#      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      - fsnet
+    environment:
+      MODE: swarm
+      NETWORK: fastscore_fsnet
+
+  composer:
+    image: fastscore/composer:dev
+    depends_on:
+      - proxy
+      - connect
+      - conductor
+#    ports:
+#      - "8010:8010"
+    networks:
+      - fsnet
+    environment:
+      CONDUCTOR_HOST: https://conductor:8080
+      PROXY: https://proxy:8000
+      MODE: Kafka # TCP
+      KAFKA_SERVERS: kafka:9092
+
+  designer:
+    image: fastscore/designer:dev
+#    ports:
+#      - "8012:8012"
+    networks:
+      - fsnet
+
+  kafkaesq:
+    image: localrepo/kafkaesq
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./data:/kafkaesq/data
+    networks:
+      - fsnet
+
+  grafana:
+    image: grafana/grafana:5.0.4
+    depends_on:
+      - influxdb
+      - dashboard
+      - connect
+#    ports:
+#      - 3000:3000
+    env_file:
+      - config/grafana.env
+    volumes:
+      - ./data/grafana:/var/lib/grafana
+    stdin_open: true
+    tty: true
+    networks:
+      - fsnet
+
+  influxdb:
+    image: localrepo/influxdb
+    stdin_open: true
+    tty: true
+    volumes:
+      - influxdb:/var/lib/influxdb
+ #   ports:
+ #     - "8083:8083"
+ #     - "8086:8086"
+ #     - "8090:8090"
+    env_file:
+      - config/influxdb.env
+    networks:
+      - fsnet
+
+  postgres:
+    image: postgres:9.6
+    environment:
+      - POSTGRES_USER=airflow
+      - POSTGRES_PASSWORD=airflow
+      - POSTGRES_DB=airflow
+    volumes:
+      - ./data/airflow/postgres-data:/var/lib/postgresql/data
+    networks:
+      - fsnet
+
+  airflow:
+    image: localrepo/airflow
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      - LOAD_EX=n
+      - EXECUTOR=Local
+      - FERNET_KEY=_4AIQlBSs3TSp-hOYKJsniXTbr17hoOYO3ZyeYtmltk=
+    volumes:
+      - ./data/airflow/dags:/usr/local/airflow/dags
+      - ./data/airflow/processing:/usr/local/airflow/processing
+      - ./data/airflow/logs:/usr/local/airflow/logs
+      - /var/run/docker.sock:/var/run/docker.sock
+    # Uncomment to include custom plugins
+    # - ./plugins:/usr/local/airflow/plugins
+#    ports:
+#      - "15080:8080"
+    networks:
+      - fsnet
+
+  arangodb:
+    image: arangodb/arangodb:3.3.9
+    environment:
+      - ARANGO_NO_AUTH=1
+    volumes:
+      - ./data/arangodb:/var/lib/arangodb
+#    ports:
+#      - "8529:8529"
+    networks:
+      - fsnet
+      
+  ldap-auth-proxy:
+    image: localrepo/nginx-proxy
+#   build: ./nginx-ldap  <<--should use this more often!
+    networks:
+      - fsnet
+#    volumes:
+#      - ./nginx-ldap-auth-proxy.conf:/etc/nginx/nginx.conf:ro
+#      - ./dummy.crt:/etc/nginx/dymmy.crt
+#      - ./dummy.key:/etc/nginx/dymmy.key
+    ports:
+      - 15080:15080
+      - 8000:8000
+      - 8529:8529
+      - 8888:8888
+      - 3000:3000
+
+  openldap:
+    image: dinkel/openldap
+#   container_name: openldap
+    volumes:
+      - ./data/ldap:/var/lib/ldap
+    networks:
+      - fsnet
+    environment:
+      - SLAPD_PASSWORD=secret
+      - SLAPD_DOMAIN=example.com
+
+  ldapadmin:
+    image: dinkel/phpldapadmin
+#    container_name: ldapadmin
+    ports:
+      - 9237:80
+    networks:
+      - fsnet
+
+
+volumes:
+  db-data:
+  influxdb:
+
+networks:
+  fsnet:
